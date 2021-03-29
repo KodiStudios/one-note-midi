@@ -1,8 +1,4 @@
-# Welcome to One Note Midi
-
-With the power of One Note Midi App, you can play any note on your favorite musical instrument!
-
-## Usage
+# Usage 
 
 ```
 OneNoteMidi.exe [FLAGS]
