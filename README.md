@@ -1,1 +1,3 @@
-# one-note-midi
+# One Note Midi App
+
+[Usage](docs/index.md)
