@@ -2,7 +2,7 @@
 
 ## Download
 
-https://github.com/KodiStudios/one-note-midi/releases/latest
+[One Note Midi](https://github.com/KodiStudios/one-note-midi/releases/latest)
 
 ## Usage
 
