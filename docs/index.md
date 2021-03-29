@@ -1,4 +1,4 @@
-# Usage 
+# One Note Midi App 
 
 ```
 OneNoteMidi.exe [FLAGS]
