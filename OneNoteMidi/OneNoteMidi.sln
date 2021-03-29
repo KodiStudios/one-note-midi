@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OneNoteMidi", "OneNoteMidi.vcxproj", "{7F34F774-BC82-4C96-A940-BCE1A265A803}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneNoteMidiTest", "..\OneNoteMidiTest\OneNoteMidiTest.csproj", "{4ED1243E-12DC-4482-9B54-5FA63C32FC1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,6 +17,10 @@ Global
 		{7F34F774-BC82-4C96-A940-BCE1A265A803}.Debug|x86.Build.0 = Debug|Win32
 		{7F34F774-BC82-4C96-A940-BCE1A265A803}.Release|x86.ActiveCfg = Release|Win32
 		{7F34F774-BC82-4C96-A940-BCE1A265A803}.Release|x86.Build.0 = Release|Win32
+		{4ED1243E-12DC-4482-9B54-5FA63C32FC1C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4ED1243E-12DC-4482-9B54-5FA63C32FC1C}.Debug|x86.Build.0 = Debug|Any CPU
+		{4ED1243E-12DC-4482-9B54-5FA63C32FC1C}.Release|x86.ActiveCfg = Release|Any CPU
+		{4ED1243E-12DC-4482-9B54-5FA63C32FC1C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

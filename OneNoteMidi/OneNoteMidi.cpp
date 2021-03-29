@@ -197,6 +197,7 @@ namespace ArgumentParsing {
 		uint8_t Pitch{ 60 };           // 60 is C Note
 		uint8_t Velocity{ 90 };       // 127 is Max Velocity (Volume)
 		uint32_t Length{ 3000 };       // Note Length, in Milliseconds
+		bool Help{ false };
 	};
 
 	void VerifyLimits(const AppArguments& appArguments)
@@ -212,14 +213,15 @@ namespace ArgumentParsing {
 		AppArguments defaultArguments;
 		std::cout << "Plays one note through Midi\n";
 		std::cout << "\n";
-		std::cout << "Usage: " << appName << " [FLAGS]";
+		std::cout << "Usage: \n";
+		std::cout << appName << " [FLAGS]\n";
 		std::cout << "\n";
 		std::cout << "  -c [0-15]" << "           Channel. Default: " << (uint32_t)defaultArguments.Channel << "\n";
 		std::cout << "  -i [0-127]" << "          Instrument. Default: " << (uint32_t)defaultArguments.Instrument << " (Grand Piano)\n";
 		std::cout << "  -p [0-127]" << "          Pitch (Note). Default: " << (uint32_t)defaultArguments.Pitch << " (Middle C Note)\n";
 		std::cout << "  -v [0-127]" << "          Velocity (Volume). Default: " << (uint32_t)defaultArguments.Velocity << " (" << defaultArguments.Velocity / 127.0 * 100.0 << "% Loud)\n";
 		std::cout << "  -l [milliseconds]" << "   Length (Note Length), in Milliseconds. Default: " << (uint32_t)defaultArguments.Length << " milliseconds\n";
-		std::cout << "  -?" << "            Prints this help\n";
+		std::cout << "  -?" << "                  Prints this help\n";
 		std::cout << "\n";
 		std::cout << "Examples:\n";
 		std::cout << "\n";
@@ -239,35 +241,42 @@ namespace ArgumentParsing {
 
 		CLI::App app{ "One Note Midi", "Plays the requested Midi Note" };
 
-		app.add_option("-c", /*out*/ appArguments.Channel, "Channel");
-		app.add_option("-i", /*out*/ appArguments.Instrument, "Instrument");
-		app.add_option("-p", /*out*/ appArguments.Pitch, "Pitch (Note)");
-		app.add_option("-v", /*out*/ appArguments.Velocity, "Velocity (Volume)");
-		app.add_option("-l", /*out*/ appArguments.Length, "Note Length");
+		// Note, "/" based flags also work! Eg /?
+		app.add_option("-c", /*out*/ appArguments.Channel);
+		app.add_option("-i", /*out*/ appArguments.Instrument);
+		app.add_option("-p", /*out*/ appArguments.Pitch);
+		app.add_option("-v", /*out*/ appArguments.Velocity);
+		app.add_option("-l", /*out*/ appArguments.Length);
+		app.add_flag("-?", /*out*/ appArguments.Help);
 
 		try
 		{
 			app.parse(argc, argv);
 		}
-		catch (CLI::CallForHelp)
+		catch (const CLI::CallForHelp& /*e*/)
 		{
 			// Weird Pattern
+			appArguments.Help = true;
+			PrintHelp(/*appName*/ std::filesystem::path(argv[0]).filename().generic_u8string().c_str());
+		}
+		catch (const CLI::Error& e)
+		{
+			// Any other parse error
+			std::cout << "Flag Parse Error: " << e.what() << "\n";
 			PrintHelp(/*appName*/ std::filesystem::path(argv[0]).filename().generic_u8string().c_str());
 			return nullptr;
 		}
-		catch (CLI::Error e)
+
+		if (appArguments.Help)
 		{
-			// Any other parse error
-			std::cout << "Flag Error: " << e.what() << "\n";
 			PrintHelp(/*appName*/ std::filesystem::path(argv[0]).filename().generic_u8string().c_str());
-			return nullptr;
 		}
 
 		try
 		{
 			VerifyLimits(appArguments);
 		}
-		catch (std::invalid_argument e)
+		catch (const std::invalid_argument& e)
 		{
 			std::cout << "Flag Limit Error: " << e.what() << "\n";
 			PrintHelp(/*appName*/ std::filesystem::path(argv[0]).filename().generic_u8string().c_str());
@@ -285,12 +294,25 @@ int main(int argc, char* argv[])
 		std::unique_ptr<ArgumentParsing::AppArguments> appArguments = ArgumentParsing::Parse(argc, argv);
 		if (appArguments)
 		{
+			if (appArguments->Help)
+			{
+				// Note, help message was already printed, no need to 
+				// print anything else
+				return 0;
+			}
+
 			PlayNote(
 				appArguments->Channel,
 				appArguments->Instrument,
 				appArguments->Pitch,
 				appArguments->Velocity,
 				appArguments->Length);
+		}
+		else
+		{
+			// Note, error message was already printed, no need to 
+			// print anything else
+			return 1;
 		}
 	}
 	catch (const std::exception& e)

@@ -2960,7 +2960,7 @@ class AsNumberWithUnit : public Validator {
     /// CASE_SENSITIVE/CASE_INSENSITIVE controls how units are matched.
     /// UNIT_OPTIONAL/UNIT_REQUIRED throws ValidationError
     ///   if UNIT_REQUIRED is set and unit literal is not found.
-    enum Options {
+    enum class Options : unsigned int {
         CASE_SENSITIVE = 0,
         CASE_INSENSITIVE = 1,
         UNIT_OPTIONAL = 0,
@@ -2970,7 +2970,7 @@ class AsNumberWithUnit : public Validator {
 
     template <typename Number>
     explicit AsNumberWithUnit(std::map<std::string, Number> mapping,
-                              Options opts = DEFAULT,
+                              Options opts = Options::DEFAULT,
                               const std::string &unit_name = "UNIT") {
         description(generate_description<Number>(unit_name, opts));
         validate_mapping(mapping, opts);
@@ -2994,10 +2994,11 @@ class AsNumberWithUnit : public Validator {
             input.resize(static_cast<std::size_t>(std::distance(input.begin(), unit_begin)));
             detail::trim(input);
 
-            if(opts & UNIT_REQUIRED && unit.empty()) {
+            if(static_cast<unsigned int>(opts) & static_cast<unsigned int>(Options::UNIT_REQUIRED) 
+                && unit.empty()) {
                 throw ValidationError("Missing mandatory unit");
             }
-            if(opts & CASE_INSENSITIVE) {
+            if(static_cast<unsigned int>(opts) & static_cast<unsigned int>(Options::CASE_INSENSITIVE)) {
                 unit = detail::to_lower(unit);
             }
 
@@ -3047,7 +3048,7 @@ class AsNumberWithUnit : public Validator {
         }
 
         // make all units lowercase if CASE_INSENSITIVE
-        if(opts & CASE_INSENSITIVE) {
+        if(static_cast<unsigned int>(opts) & static_cast<unsigned int>(Options::CASE_INSENSITIVE)) {
             std::map<std::string, Number> lower_mapping;
             for(auto &kv : mapping) {
                 auto s = detail::to_lower(kv.first);
@@ -3065,7 +3066,7 @@ class AsNumberWithUnit : public Validator {
     template <typename Number> static std::string generate_description(const std::string &name, Options opts) {
         std::stringstream out;
         out << detail::type_name<Number>() << ' ';
-        if(opts & UNIT_REQUIRED) {
+        if(static_cast<unsigned int>(opts) & static_cast<unsigned int>(Options::UNIT_REQUIRED)) {
             out << name;
         } else {
             out << '[' << name << ']';
