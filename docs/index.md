@@ -1,5 +1,11 @@
 # One Note Midi App 
 
+## Download
+
+https://github.com/KodiStudios/one-note-midi/releases/latest
+
+## Usage
+
 ```
 OneNoteMidi.exe [FLAGS]
 
