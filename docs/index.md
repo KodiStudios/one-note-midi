@@ -1,37 +1,24 @@
-## Welcome to GitHub Pages
+# Welcome to One Note Midi
 
-You can use the [editor on GitHub](https://github.com/KodiStudios/one-note-midi/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+With the power of One Note Midi App, you can play any note on your favorite musical instrument!
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Usage
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
 ```
+OneNoteMidi.exe [FLAGS]
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+  -c [0-15]           Channel. Default: 0
+  -i [0-127]          Instrument. Default: 0 (Grand Piano)
+  -p [0-127]          Pitch (Note). Default: 60 (Middle C Note)
+  -v [0-127]          Velocity (Volume). Default: 90 (70.8661% Loud)
+  -l [milliseconds]   Length (Note Length), in Milliseconds. Default: 3000 milliseconds
+  -?                  Prints this help
 
-### Jekyll Themes
+Examples:
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/KodiStudios/one-note-midi/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+OneNoteMidi.exe -i 24 -p 80
+Play Guitar Note
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+OneNoteMidi.exe -c 1 -i 24 -p 81 -v 120 -l 2000
+Sets Channel 1 to Guitar, Plays G Note, at Volume 120, for 2 seconds
+```
