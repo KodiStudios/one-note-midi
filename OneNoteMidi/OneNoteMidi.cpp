@@ -229,7 +229,7 @@ namespace ArgumentParsing {
 		std::cout << "Plays Guitar, E Note\n";
 		std::cout << "\n";
 		std::cout << appName << " -i 13 -p 67 -v 127 -l 1000 -c 1\n";
-		std::cout << "Plays Xylophone, G Note, at Max Volume, for 2 seconds, on Channel 1\n";
+		std::cout << "Plays Xylophone, G Note, at Max Volume, for 1 second, on Channel 1\n";
 
 		// Violin: 41
 		// C Note: 60
