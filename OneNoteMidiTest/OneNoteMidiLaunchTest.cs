@@ -25,7 +25,7 @@ namespace OneNoteMidiTest
         [TestMethod]
         public void GuitarLaunch()
         {
-            string args = "-i 24 -p 80";
+            string args = "-i 24 -p 64";
             // Launch OneNoteMidi.exe
             using (Process oneNoteMidiProcess = Process.Start(GetOneNoteMidiFilePath(), args))
             {
@@ -38,7 +38,7 @@ namespace OneNoteMidiTest
         [TestMethod]
         public void GuitarWithOptionsLaunch()
         {
-            string args = "-c 1 -i 24 -p 81 -v 120 -l 2000";
+            string args = "-i 13 -p 67 -v 127 -l 1000 -c 1";
             // Launch OneNoteMidi.exe
             using (Process oneNoteMidiProcess = Process.Start(GetOneNoteMidiFilePath(), args))
             {

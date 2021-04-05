@@ -216,20 +216,20 @@ namespace ArgumentParsing {
 		std::cout << "Usage: \n";
 		std::cout << appName << " [FLAGS]\n";
 		std::cout << "\n";
-		std::cout << "  -c [0-15]" << "           Channel. Default: " << (uint32_t)defaultArguments.Channel << "\n";
 		std::cout << "  -i [0-127]" << "          Instrument. Default: " << (uint32_t)defaultArguments.Instrument << " (Grand Piano)\n";
 		std::cout << "  -p [0-127]" << "          Pitch (Note). Default: " << (uint32_t)defaultArguments.Pitch << " (Middle C Note)\n";
 		std::cout << "  -v [0-127]" << "          Velocity (Volume). Default: " << (uint32_t)defaultArguments.Velocity << " (" << defaultArguments.Velocity / 127.0 * 100.0 << "% Loud)\n";
 		std::cout << "  -l [milliseconds]" << "   Length (Note Length), in Milliseconds. Default: " << (uint32_t)defaultArguments.Length << " milliseconds\n";
+		std::cout << "  -c [0-15]" << "           Channel. Default: " << (uint32_t)defaultArguments.Channel << "\n";
 		std::cout << "  -?" << "                  Prints this help\n";
 		std::cout << "\n";
 		std::cout << "Examples:\n";
 		std::cout << "\n";
-		std::cout << appName << " -i 24 -p 80\n";
-		std::cout << "Play Guitar Note\n";
+		std::cout << appName << " -i 24 -p 64\n";
+		std::cout << "Plays Guitar, E Note\n";
 		std::cout << "\n";
-		std::cout << appName << " -c 1 -i 24 -p 81 -v 120 -l 2000\n";
-		std::cout << "Sets Channel 1 to Guitar, Plays G Note, at Volume 120, for 2 seconds\n";
+		std::cout << appName << " -i 13 -p 67 -v 127 -l 1000 -c 1\n";
+		std::cout << "Plays Xylophone, G Note, at Max Volume, for 2 seconds, on Channel 1\n";
 
 		// Violin: 41
 		// C Note: 60
@@ -242,11 +242,11 @@ namespace ArgumentParsing {
 		CLI::App app{ "One Note Midi", "Plays the requested Midi Note" };
 
 		// Note, "/" based flags also work! Eg /?
-		app.add_option("-c", /*out*/ appArguments.Channel);
 		app.add_option("-i", /*out*/ appArguments.Instrument);
 		app.add_option("-p", /*out*/ appArguments.Pitch);
 		app.add_option("-v", /*out*/ appArguments.Velocity);
 		app.add_option("-l", /*out*/ appArguments.Length);
+		app.add_option("-c", /*out*/ appArguments.Channel);
 		app.add_flag("-?", /*out*/ appArguments.Help);
 
 		try
